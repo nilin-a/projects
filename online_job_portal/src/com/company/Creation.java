@@ -16,8 +16,8 @@ public class Creation {
             "country VARCHAR(255)," +
             "city VARCHAR(255)," +
             "bio text," +
-            "CONSTRAINT mail_address_check CHECK (mail_address LIKE '^[A-Za-z0-9._+%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$')," +
-            "CONSTRAINT phone_number_check CHECK (phone_number LIKE '^\\d{100}$')," +
+            "CONSTRAINT mail_address_check CHECK (mail_address LIKE '%@%.%')," +
+            "CONSTRAINT phone_number_check CHECK (phone_number LIKE '+7__________' OR phone_number LIKE '8__________')," +
             "CONSTRAINT birth_date_check CHECK (birth_date > '1900-01-01' AND birth_date < CURRENT_DATE)" +
             ");";
 
@@ -64,9 +64,9 @@ public class Creation {
             "job_id INT NOT NULL DEFAULT nextval('sequence_for_jobs_table') PRIMARY KEY," +
             "applicant_id INT NOT NULL REFERENCES applicants ON DELETE CASCADE," +
             "company_id INT NOT NULL REFERENCES companies ON DELETE SET NULL," +
+            "job_title VARCHAR(255) NOT NULL," +
             "start_date DATE," +
             "end_date DATE," +
-            "responsibilities TEXT," +
             "successes TEXT," +
             "CONSTRAINT start_date_check CHECK (start_date > '1900-01-01' AND start_date < CURRENT_DATE)," +
             "CONSTRAINT end_date_check CHECK (end_date > start_date)" +
@@ -112,13 +112,21 @@ public class Creation {
             "responsibility_id INT NOT NULL DEFAULT NEXTVAL('sequence_for_responsibilities_table') PRIMARY KEY," +
             "responsibility_name VARCHAR(255) NOT NULL UNIQUE" +
             ");";
-
+    /*
     static final String create_sequence_for_applicants_responsibilities_table = "CREATE SEQUENCE sequence_for_applicants_responsibilities_table START WITH 1;";
     static final String drop_sequence_for_applicants_responsibilities_table = "DROP SEQUENCE IF EXISTS sequence_for_applicants_responsibilities_table;";
     static final String create_applicants_responsibilities_table = "CREATE TABLE applicants_responsibilities (" +
             "id INT NOT NULL DEFAULT NEXTVAL('sequence_for_applicants_responsibilities_table') PRIMARY KEY," +
             "applicant_id INT NOT NULL REFERENCES applicants ON DELETE CASCADE," +
             "responsibility_id INT NOT NULL REFERENCES responsibilities ON DELETE CASCADE" +
+            ");";
+     */
+    static final String create_sequence_for_applicants_employment_types_table = "CREATE SEQUENCE sequence_for_applicants_employment_types_table START WITH 1;";
+    static final String drop_sequence_for_applicants_employment_types_table = "DROP SEQUENCE IF EXISTS sequence_for_applicants_employment_types_table;";
+    static final String create_applicants_employment_types_table = "CREATE TABLE applicants_employment_types (" +
+            "id INT NOT NULL DEFAULT NEXTVAL('sequence_for_applicants_employment_types_table') PRIMARY KEY," +
+            "applicant_id INT NOT NULL REFERENCES applicants ON DELETE CASCADE," +
+            "employment_type_id INT NOT NULL REFERENCES employment_types ON DELETE CASCADE" +
             ");";
 
     static final String create_sequence_for_vacancies_responsibilities_table = "CREATE SEQUENCE sequence_for_vacancies_responsibilities_table START WITH 1;";
@@ -128,7 +136,7 @@ public class Creation {
             "vacancy_id INT NOT NULL REFERENCES vacancies ON DELETE CASCADE," +
             "responsibility_id INT NOT NULL REFERENCES responsibilities ON DELETE CASCADE" +
             ");";
-
+    /*
     static final String create_sequence_for_requirements_table = "CREATE SEQUENCE sequence_for_requirements_table START WITH 1;";
     static final String drop_sequence_for_requirements_table = "DROP SEQUENCE IF EXISTS sequence_for_requirements_table;";
     static final String create_requirements_table = "CREATE TABLE requirements (" +
@@ -144,12 +152,14 @@ public class Creation {
             "requirement_id INT NOT NULL REFERENCES requirements ON DELETE CASCADE" +
             ");";
 
-    static final String create_sequence_for_vacancies_requirements_table = "CREATE SEQUENCE sequence_for_vacancies_requirements_table START WITH 1;";
-    static final String drop_sequence_for_vacancies_requirements_table = "DROP SEQUENCE IF EXISTS sequence_for_vacancies_requirements_table;";
-    static final String create_vacancies_requirements_table = "CREATE TABLE vacancies_requirements (" +
-            "id INT NOT NULL DEFAULT NEXTVAL('sequence_for_vacancies_requirements_table') PRIMARY KEY," +
+     */
+
+    static final String create_sequence_for_vacancies_skills_table = "CREATE SEQUENCE sequence_for_vacancies_skills_table START WITH 1;";
+    static final String drop_sequence_for_vacancies_skills_table = "DROP SEQUENCE IF EXISTS sequence_for_vacancies_skills_table;";
+    static final String create_vacancies_skills_table = "CREATE TABLE vacancies_skills (" +
+            "id INT NOT NULL DEFAULT NEXTVAL('sequence_for_vacancies_skills_table') PRIMARY KEY," +
             "vacancy_id INT NOT NULL REFERENCES vacancies ON DELETE CASCADE," +
-            "requirement_id INT NOT NULL REFERENCES requirements ON DELETE CASCADE" +
+            "skills_id INT NOT NULL REFERENCES skills ON DELETE CASCADE" +
             ");";
 
     static final String create_sequence_for_conditions_table = "CREATE SEQUENCE sequence_for_conditions_table START WITH 1;";
@@ -175,7 +185,8 @@ public class Creation {
             "condition_id INT NOT NULL REFERENCES conditions ON DELETE CASCADE" +
             ");";
 
-    static final String drop_table = "DROP TABLE ?";
+    static final String alter_drop_constraint_table = "ALTER TABLE applicants DROP CONSTRAINT phone_number_check;";
+    static final String alter_add_constraint_table = "ALTER TABLE applicants ADD CONSTRAINT phone_number_check CHECK (phone_number LIKE '+7__________' OR phone_number LIKE '8__________');";
 
     public static boolean checkTableExistence(String tableName) throws SQLException {
         DatabaseMetaData databaseMetaData = Start.getDBConnection().getMetaData();
@@ -195,7 +206,6 @@ public class Creation {
     }
     public static void dropTable(String tableName, String sequenceName) throws SQLException {
         Connection connection = Start.getDBConnection();
-        //PreparedStatement preparedStatement = connection.prepareStatement(drop_table);
         Statement statement = connection.createStatement();
         try {
             statement.execute("DROP TABLE " + tableName);
