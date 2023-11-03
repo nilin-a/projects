@@ -78,9 +78,11 @@ public class Creation {
             "vacancy_id INT NOT NULL DEFAULT nextval('sequence_for_vacancies_table') PRIMARY KEY," +
             "company_id INT NOT NULL REFERENCES companies ON DELETE CASCADE," +
             "vacancy_name VARCHAR(255) NOT NULL," +
-            "salary MONEY," +
-            "required_work_experience INT CHECK(required_work_experience >= 0)," +
-            "employment_type_id INT NOT NULL REFERENCES employment_types ON DELETE SET NULL" +
+            "salary NUMERIC(9, 2)," +
+            "required_work_experience INT," +
+            "employment_type_id INT NOT NULL REFERENCES employment_types ON DELETE SET NULL," +
+            "CONSTRAINT salary_check CHECK (salary > 0)," +
+            "CONSTRAINT required_work_experience_check CHECK (required_work_experience >= 0)" +
             ");";
 
     static final String create_sequence_for_employment_types_table = "CREATE SEQUENCE sequence_for_employment_types_table START WITH 1;";
@@ -185,6 +187,16 @@ public class Creation {
             "condition_id INT NOT NULL REFERENCES conditions ON DELETE CASCADE" +
             ");";
 
+    static final String create_sequence_for_vacancies_applicants_table = "CREATE SEQUENCE sequence_for_vacancies_applicants_table START WITH 1;";
+    static final String drop_sequence_for_vacancies_applicants_table = "DROP SEQUENCE IF EXISTS sequence_for_vacancies_applicants_table;";
+    static final String create_vacancies_applicants_table = "CREATE TABLE vacancies_applicants (" +
+            "id INT NOT NULL DEFAULT NEXTVAL('sequence_for_vacancies_applicants_table') PRIMARY KEY," +
+            "vacancy_id INT NOT NULL REFERENCES vacancies ON DELETE CASCADE," +
+            "applicant_id INT NOT NULL REFERENCES applicants ON DELETE CASCADE," +
+            "status VARCHAR(255) NOT NULL," +
+            "CONSTRAINT status_check CHECK(status IN ('Не просмотрено', 'Просмотренно', 'Приглашение', 'Отказ'))" +
+            ");";
+
     static final String alter_drop_constraint_table = "ALTER TABLE applicants DROP CONSTRAINT phone_number_check;";
     static final String alter_add_constraint_table = "ALTER TABLE applicants ADD CONSTRAINT phone_number_check CHECK (phone_number LIKE '+7__________' OR phone_number LIKE '8__________');";
 
@@ -197,7 +209,7 @@ public class Creation {
         Connection connection = Start.getDBConnection();
         Statement statement = connection.createStatement();
         try {
-            statement.execute(createSequence);
+            //statement.execute(createSequence);
             statement.execute(createTable);
         } finally {
             statement.close();

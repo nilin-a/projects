@@ -11,8 +11,8 @@ public class Main {
         //tables creation
         /*
         try {
-            if (!Creation.checkTableExistence("jobs")) {
-                Creation.createTable(Creation.create_jobs_table, Creation.create_sequence_for_jobs_table);
+            if (!Creation.checkTableExistence("vacancies_applicants")) {
+                Creation.createTable(Creation.create_vacancies_applicants_table, Creation.create_sequence_for_vacancies_applicants_table);
             } else {
                 System.out.println("This table already exists!");
             }
@@ -154,6 +154,7 @@ public class Main {
             throwables.printStackTrace();
         }
          */
+        /*
         //insert into jobs table
         try {
             if (Creation.checkTableExistence("jobs")) {
@@ -163,6 +164,81 @@ public class Main {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
+         */
+
+        //insert into responsibilities table
+        /*
+        try {
+            if (Creation.checkTableExistence("responsibilities")) {
+                int insertedRows = Insertion.responsibilitiesInsert("Ведение документации");
+                System.out.println(insertedRows + " was added");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        */
+        //insert into vacancies table
+        /*
+        try {
+            if (Creation.checkTableExistence("vacancies")) {
+                int insertedRows = Insertion.vacanciesInsert(2, "Системный аналитик", 57000, 2, 4);
+                System.out.println(insertedRows + " was added");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+         */
+        //insert into vacancies_conditions table
+        /*
+        try {
+            if (Creation.checkTableExistence("vacancies_conditions")) {
+                int insertedRows = Insertion.vacanciesConditionsInsert(3, 7);
+                System.out.println(insertedRows + " was added");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+         */
+
+        //insert into vacancies_responsibilities table
+        /*
+        try {
+            if (Creation.checkTableExistence("vacancies_responsibilities")) {
+                int insertedRows = Insertion.vacanciesResponsibilitiesInsert(3,  4);
+                System.out.println(insertedRows + " was added");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+         */
+
+        //insert into vacancies_skills table
+        /*
+        try {
+            if (Creation.checkTableExistence("vacancies_skills")) {
+                int insertedRows = Insertion.vacanciesSkillsInsert(3,  3);
+                System.out.println(insertedRows + " was added");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+         */
+
+        //insert into vacancies_applicants table
+        try {
+            if (Creation.checkTableExistence("vacancies_applicants")) {
+                int insertedRows = Insertion.vacanciesApplicantsInsert(2,  8, "Отказ");
+                System.out.println(insertedRows + " was added");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
 
 
 
