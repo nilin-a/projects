@@ -1,13 +1,15 @@
 package com.company;
 
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) throws ClassNotFoundException {
-        String dataBaseDriver = "org.postgresql.Driver";
-        Class.forName(dataBaseDriver);
+        //String dataBaseDriver = "org.postgresql.Driver";
+        //Class.forName(dataBaseDriver);
         //tables creation
         /*
         try {
@@ -142,18 +144,7 @@ public class Main {
         }
 
          */
-        //insert into companies table
-        /*
-        try {
-            if (Creation.checkTableExistence("companies")) {
-                int insertedRows = Insertion.companiesInsert("Огонек", Date.valueOf("2002-11-19"), "IT компания",
-                        "Россия", "Саратов", "Прямая", "9");
-                System.out.println(insertedRows + " was added");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-         */
+
         /*
         //insert into jobs table
         try {
@@ -229,6 +220,7 @@ public class Main {
          */
 
         //insert into vacancies_applicants table
+        /*
         try {
             if (Creation.checkTableExistence("vacancies_applicants")) {
                 int insertedRows = Insertion.vacanciesApplicantsInsert(2,  8, "Отказ");
@@ -238,7 +230,69 @@ public class Main {
             throwables.printStackTrace();
         }
 
+         */
 
+        //select form applicants
+        /*
+        try {
+            if (Creation.checkTableExistence("applicants")) {
+                ResultSet resultSet = Retrieving.retrieveFromApplicants(Retrieving.select_from_applicants);
+                int counter = 1;
+                while (resultSet.next()) {
+                    System.out.println("\nApplicants №" + counter);
+                    System.out.println("Id: " + resultSet.getInt("applicant_id"));
+                    System.out.println("Name: " + resultSet.getString("first_name"));
+                    System.out.println("Surname: " + resultSet.getString("last_name"));
+                    System.out.println("email: " + resultSet.getString("mail_address"));
+                    System.out.println("Phone number: " + resultSet.getString("phone_number"));
+                    System.out.println("Birth date: " + resultSet.getDate("birth_date"));
+                    System.out.println("Country: " + resultSet.getString("country"));
+                    System.out.println("City: " + resultSet.getString("city"));
+                    String bio = resultSet.getString("bio");
+                    if (bio != null) {
+                        System.out.println("bio: " + bio);
+                    }
+                    counter++;
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+         */
+
+
+        //UserInteraction.roleSelection();
+        Scanner in = new Scanner(System.in);
+        System.out.println("Choose your interaction with companies table: insert, read, edit, delete, metadata. Enter exit for exit.");
+        String function = in.nextLine().toLowerCase();
+        while (!function.equals("exit"))
+        switch (function) {
+            case ("insert"):
+                System.out.println("Insertion to the table");
+                UserInteraction.makeInsertionToCompaniesTable();
+                function = in.nextLine().toLowerCase();
+                break;
+            case ("read"):
+                System.out.println("Reading the data");
+                UserInteraction.showCompaniesTable();
+                function = in.nextLine().toLowerCase();
+                break;
+            case ("edit"):
+                System.out.println("Edition the data");
+                UserInteraction.makeUpdatingToCompaniesTable();
+                function = in.nextLine().toLowerCase();
+                break;
+            case ("delete"):
+                System.out.println("Deletion the data");
+                function = in.nextLine().toLowerCase();
+                break;
+            case ("metadata"):
+                System.out.println("Metadata");
+                function = in.nextLine().toLowerCase();
+                break;
+        }
+        System.out.println("Goodbye!");
 
 
 
