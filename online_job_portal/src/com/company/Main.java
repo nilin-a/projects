@@ -261,6 +261,8 @@ public class Main {
 
          */
 
+        //System.out.println("Choose the table:");
+
 
         //UserInteraction.roleSelection();
         Scanner in = new Scanner(System.in);
@@ -289,6 +291,9 @@ public class Main {
                 break;
             case ("metadata"):
                 System.out.println("Metadata");
+                UserInteraction.showTablesNames();
+                UserInteraction.showDriverInfo();
+                UserInteraction.showProductInfo();
                 function = in.nextLine().toLowerCase();
                 break;
         }

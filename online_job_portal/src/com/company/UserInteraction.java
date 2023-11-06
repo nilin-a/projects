@@ -187,4 +187,33 @@ public class UserInteraction {
         }
     }
 
+    public static void showTablesNames() {
+        System.out.println("Tables' names: ");
+        try {
+            ResultSet resultSet = MetaData.getTables();
+            int counter = 1;
+            while (resultSet.next()) {
+                System.out.println("Table " + counter + " name: " + resultSet.getString("TABLE_NAME"));
+                counter++;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void showDriverInfo() {
+        try {
+            System.out.println("Driver's information:\nName: " + MetaData.getDriverName() + ", version: " + MetaData.getDriverVersion());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void showProductInfo() {
+        try {
+            System.out.println("Product's information:\nName: " + MetaData.getDatabaseProductName() + ", version: " + MetaData.getDatabaseProductVersion());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 }
