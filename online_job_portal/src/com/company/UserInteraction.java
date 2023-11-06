@@ -13,12 +13,15 @@ public class UserInteraction {
         Scanner in = new Scanner(System.in);
         System.out.println("Choose your role: admin or user. Enter exit for exit.");
         String role = in.nextLine().toLowerCase();
+
         /*
         while (!role.equals("admin")) {
             System.out.println("Wrong option! Enter admin, user or exit.");
             role = in.nextLine().toLowerCase();
         }
+
          */
+
         switch (role) {
             case ("admin"):
                 System.out.println("You are admin");
@@ -29,6 +32,10 @@ public class UserInteraction {
                 break;
             case ("exit"):
                 System.out.println("Goodbye");
+                break;
+            default:
+                System.out.println("Wrong option! Enter admin, user or exit.");
+                roleSelection();
                 break;
         }
     }
