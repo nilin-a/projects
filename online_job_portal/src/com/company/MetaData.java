@@ -1,9 +1,6 @@
 package com.company;
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class MetaData {
     static Connection connection = null;
@@ -79,5 +76,44 @@ public class MetaData {
         return result;
     }
 
+    public static ResultSet getColumns(String tableName) throws SQLException {
+        ResultSet resultSet = null;
+        try {
+            resultSet = getDatabaseMetaData().getColumns(null, null, tableName, null);
+        } finally {
+            connection.close();
+        }
+        return resultSet;
+    }
+
+    public static int getColumnsAmount(String tableName) throws SQLException {
+        int columnsAmount = 0;
+        ResultSet resultSet = null;
+        ResultSetMetaData resultSetMetaData = null;
+        try {
+            resultSet = getDatabaseMetaData().getColumns(null, null, tableName, null);
+            columnsAmount = resultSet.getMetaData().getColumnCount();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            connection.close();
+        }
+        return columnsAmount;
+    }
+
+    public static String getColumnType(String tableName, int columnIndex) throws SQLException {
+        String columnType = null;
+        ResultSet resultSet = null;
+        ResultSetMetaData resultSetMetaData = null;
+        try {
+            resultSet = getDatabaseMetaData().getColumns(null, null, tableName, null);
+            columnType = resultSet.getMetaData().getColumnTypeName(columnIndex);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            connection.close();
+        }
+        return columnType;
+    }
 }
 

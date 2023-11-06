@@ -21,9 +21,7 @@ public class Main {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
          */
-
 
         //drop table
         /*
@@ -142,7 +140,6 @@ public class Main {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
          */
 
         /*
@@ -232,57 +229,33 @@ public class Main {
 
          */
 
-        //select form applicants
-        /*
-        try {
-            if (Creation.checkTableExistence("applicants")) {
-                ResultSet resultSet = Retrieving.retrieveFromApplicants(Retrieving.select_from_applicants);
-                int counter = 1;
-                while (resultSet.next()) {
-                    System.out.println("\nApplicants №" + counter);
-                    System.out.println("Id: " + resultSet.getInt("applicant_id"));
-                    System.out.println("Name: " + resultSet.getString("first_name"));
-                    System.out.println("Surname: " + resultSet.getString("last_name"));
-                    System.out.println("email: " + resultSet.getString("mail_address"));
-                    System.out.println("Phone number: " + resultSet.getString("phone_number"));
-                    System.out.println("Birth date: " + resultSet.getDate("birth_date"));
-                    System.out.println("Country: " + resultSet.getString("country"));
-                    System.out.println("City: " + resultSet.getString("city"));
-                    String bio = resultSet.getString("bio");
-                    if (bio != null) {
-                        System.out.println("bio: " + bio);
-                    }
-                    counter++;
-                }
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-         */
-
-        //System.out.println("Choose the table:");
-
-
-        //UserInteraction.roleSelection();
         Scanner in = new Scanner(System.in);
-        System.out.println("Choose your interaction with companies table: insert, read, edit, delete, metadata. Enter exit for exit.");
+        System.out.println("Choose your interaction: insert, read, edit, delete, metadata. Enter exit for exit.");
         String function = in.nextLine().toLowerCase();
         while (!function.equals("exit"))
         switch (function) {
             case ("insert"):
-                System.out.println("Insertion to the table");
+                System.out.println("Insertion to the companies table");
+                UserInteraction.showTable("companies");
                 UserInteraction.makeInsertionToCompaniesTable();
+                UserInteraction.showTable("companies");
+                System.out.println("\nChoose your interaction: insert, read, edit, delete, metadata. Enter exit for exit.");
                 function = in.nextLine().toLowerCase();
                 break;
             case ("read"):
-                System.out.println("Reading the data");
-                UserInteraction.showCompaniesTable();
+                System.out.println("Reading the data from table. Choose the table: ");
+                UserInteraction.showTablesNames();
+                String tableName = in.nextLine().toLowerCase();
+                UserInteraction.showTable(tableName);
+                System.out.println("\nChoose your interaction: insert, read, edit, delete, metadata. Enter exit for exit.");
                 function = in.nextLine().toLowerCase();
                 break;
             case ("edit"):
                 System.out.println("Edition the data");
+                UserInteraction.showTable("companies");
                 UserInteraction.makeUpdatingToCompaniesTable();
+                UserInteraction.showTable("companies");
+                System.out.println("\nChoose your interaction: insert, read, edit, delete, metadata. Enter exit for exit.");
                 function = in.nextLine().toLowerCase();
                 break;
             case ("delete"):
@@ -294,12 +267,10 @@ public class Main {
                 UserInteraction.showTablesNames();
                 UserInteraction.showDriverInfo();
                 UserInteraction.showProductInfo();
+                System.out.println("\nChoose your interaction: insert, read, edit, delete, metadata. Enter exit for exit.");
                 function = in.nextLine().toLowerCase();
                 break;
         }
         System.out.println("Goodbye!");
-
-
-
     }
 }

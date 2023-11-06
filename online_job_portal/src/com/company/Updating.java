@@ -18,45 +18,55 @@ public class Updating {
         Connection connection = null;
         int insertedRowsAmount = 0;
 
-        ResultSet previousResultSet = Retrieving.retrieveFromTable(Retrieving.select_from_companies);
-
+        ResultSet previousResultSet = Retrieving.retrieveFromTable("SELECT * FROM companies");
+        previousResultSet.next();
         try {
             connection = Start.getDBConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(update_companies_table);
-            if (companyName.isEmpty()) {
-                preparedStatement.setString(1, previousResultSet.getString("company_name"));
+            preparedStatement.setInt(1, companyId);
+            if (companyName.trim().isEmpty()) {
+                preparedStatement.setString(2, previousResultSet.getString("company_name"));
             } else {
-                preparedStatement.setString(1, companyName);
+                preparedStatement.setString(2, companyName);
             }
+
             if (foundingDay.isEmpty()) {
-                preparedStatement.setString(2, previousResultSet.getString("founding_day"));
+                preparedStatement.setString(3, previousResultSet.getString("founding_day"));
             } else {
-                preparedStatement.setDate(2, Date.valueOf(foundingDay));
+                preparedStatement.setDate(3, Date.valueOf(foundingDay));
             }
+
             if (description.isEmpty()) {
+                preparedStatement.setString(4, previousResultSet.getString("description"));
             } else {
-                preparedStatement.setString(3, description);
+                preparedStatement.setString(4, description);
             }
+
             if (countryAddress.isEmpty()) {
+                preparedStatement.setString(5, previousResultSet.getString("country_address"));
             } else {
-                preparedStatement.setString(4, countryAddress);
+                preparedStatement.setString(5, countryAddress);
             }
+
             if (cityAddress.isEmpty()) {
-
+                preparedStatement.setString(6, previousResultSet.getString("city_address"));
             } else {
-                preparedStatement.setString(5, cityAddress);
+                preparedStatement.setString(6, cityAddress);
             }
+
             if (streetAddress.isEmpty()) {
-
+                preparedStatement.setString(7, previousResultSet.getString("street_address"));
             } else {
-                preparedStatement.setString(6, streetAddress);
+                preparedStatement.setString(7, streetAddress);
             }
+
             if (buildingAddress.isEmpty()) {
-
+                preparedStatement.setString(8, previousResultSet.getString("building_address"));
             } else {
-                preparedStatement.setString(7, buildingAddress);
+                preparedStatement.setString(8, buildingAddress);
             }
-            preparedStatement.setInt(7, companyId);
+
+
             insertedRowsAmount = preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
