@@ -1,8 +1,6 @@
 package com.company;
 
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
@@ -39,17 +37,21 @@ public class UserInteraction {
         showTable(tableName);
         switch (tableName){
             case ("applicants"):
-                System.out.println("Insertion to the applicants table");
+                System.out.println("\nInsertion to the applicants table");
                 makeInsertionToApplicantsTable();
                 break;
             case ("skills"):
-                System.out.println("Insertion to the skills table");
+                System.out.println("\nInsertion to the skills table");
                 makeInsertionToSkillsTable();
                 break;
             case ("companies"):
-                System.out.println("Insertion to the companies table");
+                System.out.println("\nInsertion to the companies table");
                 makeInsertionToCompaniesTable();
                 break;
+            case ("responsibilities"):
+                System.out.println("\nInsertion to the responsibilities table (with bathing)");
+                makeInsertionToResponsibilitiesTable();
+                showTable("responsibilities");
             default:
                 System.out.println("Not done yet");
                 break;
@@ -126,6 +128,26 @@ public class UserInteraction {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public static void makeInsertionToResponsibilitiesTable() {
+        System.out.println("Enter responsibility names. To stop enter - end");
+        Scanner in = new Scanner(System.in);
+        String responsibilityName = in.nextLine().toLowerCase();
+        try {
+            Connection connection = Start.getDBConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(Insertion.insert_into_responsibilities_table);
+            while (!responsibilityName.equals("end")) {
+                preparedStatement.setString(1, responsibilityName);
+                preparedStatement.addBatch();
+                System.out.println("Enter responsibility names. To stop enter - end");
+                responsibilityName = in.nextLine().toLowerCase();
+            }
+            preparedStatement.executeBatch();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 
     public static void makeUpdatingToCompaniesTable() {
