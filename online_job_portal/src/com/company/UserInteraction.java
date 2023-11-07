@@ -31,6 +31,62 @@ public class UserInteraction {
         }
     }
 
+    public static void chooseInsertionTable() {
+        showTablesNames();
+        System.out.println("Enter table name for insertion: ");
+        Scanner in = new Scanner(System.in);
+        String tableName = in.nextLine().toLowerCase();
+        showTable(tableName);
+        switch (tableName){
+            case ("applicants"):
+                System.out.println("Insertion to the applicants table");
+                makeInsertionToApplicantsTable();
+                break;
+            case ("skills"):
+                System.out.println("Insertion to the skills table");
+                makeInsertionToSkillsTable();
+                break;
+            case ("companies"):
+                System.out.println("Insertion to the companies table");
+                makeInsertionToCompaniesTable();
+                break;
+            default:
+                System.out.println("Not done yet");
+                break;
+        }
+        showTable(tableName);
+
+    }
+
+    public static void makeInsertionToApplicantsTable() {
+        Scanner in = new Scanner(System.in);
+        try {
+            if (Creation.checkTableExistence("applicants")) {
+                System.out.println("\nEnter first name: ");
+                String firstName = in.nextLine();
+                System.out.println("Enter last name: ");
+                String lastName = in.nextLine();
+                System.out.println("Enter mail address: ");
+                String mailAddress = in.nextLine();
+                System.out.println("Enter phone number: ");
+                String phoneNumber = in.nextLine();
+                System.out.println("Enter birth date: ");
+                String birthDate = in.nextLine();
+                System.out.println("Enter country: ");
+                String country = in.nextLine();
+                System.out.println("Enter city: ");
+                String city = in.nextLine();
+                System.out.println("Enter bio: ");
+                String bio = in.nextLine();
+                int insertedRows = Insertion.applicantsInsert(firstName, lastName, mailAddress, phoneNumber,
+                        Date.valueOf(birthDate), country, city, bio);
+                System.out.println(insertedRows + " was added");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     public static void makeInsertionToCompaniesTable() {
         Scanner in = new Scanner(System.in);
         try {
@@ -58,6 +114,20 @@ public class UserInteraction {
         }
     }
 
+    public static void makeInsertionToSkillsTable() {
+        Scanner in = new Scanner(System.in);
+        try {
+            if (Creation.checkTableExistence("skills")) {
+                System.out.println("Enter skill name");
+                String skillName = in.nextLine();
+                int insertedRows = Insertion.skillsInsert(skillName);
+                System.out.println(insertedRows + " was added");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     public static void makeUpdatingToCompaniesTable() {
         Scanner in = new Scanner(System.in);
         try {
@@ -78,7 +148,7 @@ public class UserInteraction {
                 String building = in.nextLine();
                 System.out.println("Enter company id: ");
                 int companyId = in.nextInt();
-                int insertedRows = Updating.updateTable(companyName, date, description,
+                int insertedRows = Updating.updateTable(companyName, Date.valueOf(date), description,
                         country, city, street, building, companyId);
                 System.out.println(insertedRows + " was updated");
             }
@@ -115,5 +185,18 @@ public class UserInteraction {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+    }
+
+    public static void makeDeletionFromCompanies() {
+        Scanner in = new Scanner(System.in);
+        showTable("companies");
+        System.out.println("Enter id for row deletion: ");
+        int id = in.nextInt();
+        try {
+            Deletion.deleteFromCompanies(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        showTable("companies");
     }
 }
