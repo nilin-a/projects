@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+    
+    <servlet>
+        <servlet-name>SingerServlet</servlet-name>
+        <servlet-class>com.lab8_web.servlets.SingerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SingerServlet</servlet-name>
+        <url-pattern>/singers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SingerServlet</servlet-name>
+        <url-pattern>/create-singer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SingerServlet</servlet-name>
+        <url-pattern>/update-singer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SingerServlet</servlet-name>
+        <url-pattern>/delete-singer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SingerServlet</servlet-name>
+        <url-pattern>/find-singer</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AlbumServlet</servlet-name>
+        <servlet-class>com.lab8_web.servlets.AlbumServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AlbumServlet</servlet-name>
+        <url-pattern>/albums</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlbumServlet</servlet-name>
+        <url-pattern>/create-album</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlbumServlet</servlet-name>
+        <url-pattern>/update-album</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlbumServlet</servlet-name>
+        <url-pattern>/delete-album</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlbumServlet</servlet-name>
+        <url-pattern>/find-album</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SongServlet</servlet-name>
+        <servlet-class>com.lab8_web.servlets.SongServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SongServlet</servlet-name>
+        <url-pattern>/songs</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SongServlet</servlet-name>
+        <url-pattern>/create-song</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SongServlet</servlet-name>
+        <url-pattern>/update-song</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SongServlet</servlet-name>
+        <url-pattern>/delete-song</url-pattern>
+    </servlet-mapping>
+</web-app>
