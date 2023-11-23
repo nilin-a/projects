@@ -12,7 +12,9 @@ public class CourseController {
     @RequestMapping("/courses")
     public List<Course> retrieveAllCourses() {
         return Arrays.asList(
-                new Course(1, "java", "liza")
+                new Course(1, "java", "liza"),
+                new Course(2, "java", "liza"),
+                new Course(5, "java1", "liza1")
         );
     }
 
