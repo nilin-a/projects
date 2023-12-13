@@ -6,10 +6,42 @@ import jdk.jfr.StackTrace;
 public class Main {
 
     public static void main(String[] args) {
+        EditableThread thread1 = new EditableThread("One");
+        EditableThread thread2 = new EditableThread("Two");
+        try {
+            Thread.sleep(1000);
+            thread1.mySuspend();
+            System.out.println("Suspending thread one");
+            Thread.sleep(1000);
+            thread1.myResume();
+            System.out.println("Resuming thread one");
+            thread2.mySuspend();
+            System.out.println("Suspending thread two");
+            Thread.sleep(1000);
+            thread2.myResume();
+            System.out.println("Resuming thread two");
+        } catch (InterruptedException e) {
+            System.out.println("Main was interrupted");
+        }
 
+        try {
+            System.out.println("Waiting for threads to finish");
+            thread1.getThread().join();
+            thread2.getThread().join();
+        } catch (InterruptedException e) {
+            System.out.println("Main was interrupted");
+        }
+        System.out.println("Main thread exiting.");
+
+        /*
+        new Deadlock();
+         */
+
+        /*
         Queue queue = new Queue();
         new Producer(queue);
         new Consumer(queue);
+        */
 
         /*
         CallMe target = new CallMe();
