@@ -8,13 +8,9 @@ public class DemoTThread extends Thread {
     }
 
     public void run() {
-        try {
-            for (int i = 5; i > 0; i--) {
-                System.out.println("Child T thread " + i);
-                Thread.sleep(500);
-            }
-        } catch (InterruptedException e) {
-            System.out.println("Child T was interrupted");
+        int counter = 0;
+        while (!isInterrupted()) {
+            System.out.println("Loop " + counter++);
         }
         System.out.println("Exiting child T thread");
     }

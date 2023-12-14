@@ -6,6 +6,48 @@ import jdk.jfr.StackTrace;
 public class Main {
 
     public static void main(String[] args) {
+        System.out.println("Main thread started ...");
+        Thread thread = new Thread(new MetaRThread(), "My thread");
+        thread.start();
+        try {
+            Thread.sleep(1000);
+            thread.interrupt();
+        } catch (InterruptedException e) {
+            System.out.println("Main was interrupted");
+        }
+        System.out.println("Main finished");
+
+        /*
+        System.out.println("Main thread started ...");
+        Runnable r = ()->{
+            System.out.printf("%s started ...", Thread.currentThread().getName());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                System.out.println("Main was interrupted");
+            }
+            System.out.printf("%s finished ...", Thread.currentThread().getName());
+        };
+        Thread thread = new Thread(r, "My thread");
+        thread.start();
+        System.out.println("Main finished");
+
+         */
+
+        /*
+        System.out.println("Main thread started ...");
+        Thread metaTread = new Thread(new MetaRThread(), "Meta thread");
+        metaTread.start();
+        try {
+            metaTread.join();
+        } catch (InterruptedException e) {
+            System.out.println("Main was interrupted");
+        }
+        System.out.println("Main thread finished ...");
+
+         */
+
+        /*
         EditableThread thread1 = new EditableThread("One");
         EditableThread thread2 = new EditableThread("Two");
         try {
@@ -32,6 +74,7 @@ public class Main {
             System.out.println("Main was interrupted");
         }
         System.out.println("Main thread exiting.");
+         */
 
         /*
         new Deadlock();
