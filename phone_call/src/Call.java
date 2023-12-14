@@ -1,14 +1,18 @@
 public class Call {
+    private int n;
+    boolean valueSet = false;
 
-    public void call(String app, int callDuration) {
-        callDuration = 0;
-        System.out.printf("Входящий вызов из %s\n", app);
-        try {
-            Thread.sleep(callDuration);
-        } catch (InterruptedException e) {
-            System.out.printf("Вызов из %s прерван\n", app);
+    public synchronized int makeCall() {
+        while (!valueSet) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        System.out.printf("Вызов из %s завершен\n. Вызов продлился %d", app, callDuration);
-
+        System.out.println("Пoлyчeнo: " + n);
+        valueSet = false;
+        notify();
+        return n;
     }
 }
