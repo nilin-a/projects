@@ -1,7 +1,6 @@
 public class Call {
-    private int callDuration;
 
-    public void call(String app) {
+    public void call(String app, int callDuration) {
         callDuration = 0;
         System.out.printf("Входящий вызов из %s\n", app);
         try {
