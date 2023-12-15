@@ -6,6 +6,21 @@ import jdk.jfr.StackTrace;
 public class Main {
 
     public static void main(String[] args) {
+        Queue q = new Queue();
+        new Producer(q);
+        new Consumer(q);
+
+        /*
+        Store store=new Store();
+        NewProducer producer = new NewProducer(store);
+        NewConsumer consumer = new NewConsumer(store);
+        new Thread(producer).start();
+        new Thread(consumer).start();
+
+         */
+
+
+        /*
         System.out.println("Main thread started ...");
         Thread thread = new Thread(new MetaRThread(), "My thread");
         thread.start();
@@ -16,6 +31,8 @@ public class Main {
             System.out.println("Main was interrupted");
         }
         System.out.println("Main finished");
+
+         */
 
         /*
         System.out.println("Main thread started ...");
