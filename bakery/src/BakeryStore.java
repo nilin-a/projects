@@ -15,20 +15,18 @@ public class BakeryStore {
             }
         }
         System.out.println("Кондитер испек одну булку! Всего булок: " + ++bunAmount);
-        maxBunAmount--;
         notify();
     }
 
     public synchronized void buyBuns() {
-        while (bunAmount == 0) {
+        while (bunAmount < 1) {
             try {
                 wait();
             } catch (InterruptedException e) {
                 System.out.println("Процесс ожидания покупки булок прерван");
             }
         }
-        System.out.printf("Любитель булок купил %d булок!\n", bunAmount);
-        bunAmount = 0;
+        System.out.printf("Любитель булок купил одну булку! Всего булок: %d\n", --bunAmount);
         notify();
     }
 }

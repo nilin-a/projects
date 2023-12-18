@@ -4,7 +4,7 @@ public class Baker implements Runnable{
         this.store = store;
     }
     public void run() {
-        while (store.getMaxBunAmount() != 0) {
+        for (int i = 0; i < store.getMaxBunAmount(); i++) {
             store.bakeBuns();
         }
     }

@@ -22,7 +22,7 @@ public class Store {
     }
 
     public synchronized void put() {
-        while (product >= 3) {
+        while (product > 4) {
             try {
                 wait();
             } catch (InterruptedException e) {

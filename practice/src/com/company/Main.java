@@ -6,18 +6,15 @@ import jdk.jfr.StackTrace;
 public class Main {
 
     public static void main(String[] args) {
-        Queue q = new Queue();
+        /*Queue q = new Queue();
         new Producer(q);
-        new Consumer(q);
+        new Consumer(q);*/
 
-        /*
         Store store=new Store();
         NewProducer producer = new NewProducer(store);
         NewConsumer consumer = new NewConsumer(store);
         new Thread(producer).start();
         new Thread(consumer).start();
-
-         */
 
 
         /*
