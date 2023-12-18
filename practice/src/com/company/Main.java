@@ -3,18 +3,57 @@ package com.company;
 import com.company.threads.*;
 import jdk.jfr.StackTrace;
 
+import java.util.concurrent.Exchanger;
+import java.util.concurrent.Phaser;
+import java.util.concurrent.Semaphore;
+
 public class Main {
 
     public static void main(String[] args) {
+
+        Phaser phaser = new Phaser(1);
+        new Thread(new PhaseThread(phaser, "One")).start();
+        new Thread(new PhaseThread(phaser, "Two")).start();
+
+        phaser.arriveAndAwaitAdvance();
+        System.out.println("Фаза " + phaser.getPhase() + " завершена");
+
+        phaser.arriveAndAwaitAdvance();
+        System.out.println("Фаза " + phaser.getPhase() + " завершена");
+
+        phaser.arriveAndAwaitAdvance();
+        System.out.println("Фаза " + phaser.getPhase() + " завершена");
+
+        phaser.arriveAndDeregister();
+
+        /*Exchanger<String> exchanger = new Exchanger<>();
+        for (int i = 0; i <= 5; i++) {
+            new Thread(new ExchangerThread(exchanger, "Message " + i, "Thread " + i)).start();
+        }*/
+
+        /*Semaphore semaphore = new Semaphore(2);
+        for (int i = 0; i <= 5; i++) {
+            new Philosopher(semaphore, i).start();
+        }*/
+
+        /*Semaphore semaphore = new Semaphore(2);
+        CommonResource commonResource = new CommonResource();
+        new Thread(new CountThread(commonResource, semaphore, "One")).start();
+        new Thread(new CountThread(commonResource, semaphore, "Two")).start();
+        new Thread(new CountThread(commonResource, semaphore, "Tree")).start();*/
+
         /*Queue q = new Queue();
         new Producer(q);
         new Consumer(q);*/
 
+        /*
         Store store=new Store();
         NewProducer producer = new NewProducer(store);
         NewConsumer consumer = new NewConsumer(store);
         new Thread(producer).start();
         new Thread(consumer).start();
+
+         */
 
 
         /*
